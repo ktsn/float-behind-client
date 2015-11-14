@@ -1,0 +1,9 @@
+{
+  "name": "float-behind",
+  "private": true,
+  "dependencies": {
+    "reset-css": "~2.0.20110126"
+  },
+  "devDependencies": {
+  }
+}

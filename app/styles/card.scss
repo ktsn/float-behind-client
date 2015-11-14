@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+$font-sub-color: #6d6d6d;
+$card-max-width: 420px;
+$icon-size: 40px;
+
+.card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 15px 25px;
+  max-width: $card-max-width;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-height: $icon-size;
+}
+
+.card-icon-wrapper {
+  margin-right: 8px;
+  flex: 0 0 $icon-size;
+}
+
+.card-icon {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.card-header-main {
+  flex-grow: 1;
+}
+
+.card-user {
+  display: block;
+  font-size: 1.14rem;
+}
+
+.card-from {
+  display: block;
+  color: $font-sub-color;
+  font-size: 0.85rem;
+}
+
+.card-date {
+  align-self: flex-start;
+  color: $font-sub-color;
+  font-size: 0.85rem;
+}
+
+.card-title {
+  margin-top: 4px;
+  font-size: 1.71rem;
+}
