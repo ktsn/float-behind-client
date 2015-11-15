@@ -20,7 +20,7 @@ module.exports = {
   ],
   cache: true,
   debug: true,
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader'},
