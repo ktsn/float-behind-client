@@ -26,6 +26,7 @@ export default class Card {
 
     this.data = cardData;
     this.data.date = moment(this.data.date);
+    this.data.imageUrl = 'http://placehold.it/40x40';
     this.$el = $(this.template(this.data))
                 .appendTo(this.$wrapper)
                 .data('obj', this);
@@ -43,7 +44,7 @@ export default class Card {
     // Hover event
     this.$el.on({
       mouseenter: () => {
-        if (this.isDrag) {
+        if (this.isDrag || !this.isBounce) {
           return;
         }
 
@@ -142,6 +143,8 @@ export default class Card {
   }
 
   dragStart(event) {
+    event.preventDefault();
+
     this.isDrag = true;
 
     let offset = this.$wrapper.offset();
@@ -188,10 +191,10 @@ export default class Card {
         <a class="card-anchor js-card-anchor" href="${card.url}" target="_blank">
           <header class="card-header">
             <div class="card-icon-wrapper">
-              <img src="${card.imageUrl}" alt="${card.name}" class="card-icon">
+              <img src="${card.imageUrl}" alt="${card.user_name}" class="card-icon">
             </div>
             <p class="card-header-main">
-              <span class="card-user">${card.name}</span>
+              <span class="card-user">${card.user_name}</span>
               <small class="card-from">from ${card.from}</small>
             </p>
             <date class="card-date" datetime="${card.date.toISOString()}">${card.date.format('HH:mm A, Do MMMM')}</date>

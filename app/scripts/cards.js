@@ -4,7 +4,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import EventEmitter from './event-emitter';
 
-const fetchUrl = 'http://floatbehind.mybluemix.net/sampleData';
+const fetchUrl = 'http://floatbehind.mybluemix.net/getListById';
 
 export default class Cards extends EventEmitter {
   constructor() {
@@ -32,13 +32,15 @@ export default class Cards extends EventEmitter {
       url: fetchUrl,
       type: 'get',
       data: {
-        minId: this.maxId
+        id: this.maxId
       }
     }).done((data) => {
       let cards = data.result;
 
-      this.maxId = _.last(cards).id;
-      this.cards = this.cards.concat(cards);
+      if (cards.length > 0) {
+        this.maxId = _.last(cards).id + 1;
+        this.cards = this.cards.concat(cards);
+      }
 
       this.trigger('fetch', cards);
 

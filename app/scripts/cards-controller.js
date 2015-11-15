@@ -6,6 +6,8 @@ import Cards from './cards';
 import CardView from './card-view';
 import Native from './native';
 
+const pollingInterval = 5000;
+
 export default function cardsController() {
   let $wrapper = $('#app');
 
@@ -29,8 +31,7 @@ export default function cardsController() {
       if (drag.target && drag.moved) {
         drag.target.dragEnd(event);
       } else {
-        let $anchor = $(event.currentTarget).find('a');
-        Native.requestPreviewCard($anchor.attr('href'));
+        Native.requestPreviewCard(drag.target.data.url);
       }
 
       drag.target = null;
@@ -43,7 +44,7 @@ export default function cardsController() {
 
   // Fetch cards from server
   let cards = new Cards();
-  cards.startPolling(50000);
+  cards.startPolling(pollingInterval);
 
   let views = [];
 
