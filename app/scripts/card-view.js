@@ -26,7 +26,7 @@ export default class Card {
 
     this.data = cardData;
     this.data.date = moment(this.data.date);
-    this.data.imageUrl = 'http://placehold.it/40x40';
+    this.data.imageUrl = `./images/icon_${Math.floor(Math.random() * 7)}.png`;
     this.$el = $(this.template(this.data))
                 .appendTo(this.$wrapper)
                 .data('obj', this);
