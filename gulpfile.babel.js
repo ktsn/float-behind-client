@@ -54,7 +54,7 @@ gulp.task('styles', () => {
 gulp.task('html', ['webpack', 'inject'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
-  return gulp.src('app/*.html')
+  return gulp.src('.tmp/*.html')
     .pipe(assets)
     .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
