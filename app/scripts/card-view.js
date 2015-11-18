@@ -3,14 +3,14 @@
 import $ from 'jquery';
 import moment from 'moment';
 
-const weight = 0.0005;
+const weight = 0.0002;
 const velocitySeed = 20;
 const friction = 0.95;
 const bounce = -0.6;
 const threshold = 20;
 const opacityDuration = 400;
 
-export default class Card {
+export default class CardView {
   get w() {
     this._w = this._w || this.$el.outerWidth();
     return this._w;

@@ -6,7 +6,7 @@ import Cards from './cards';
 import CardView from './card-view';
 import Native from './native';
 
-const pollingInterval = 5000;
+const pollingInterval = 60000;
 
 export default function cardsController() {
   let $wrapper = $('#app');
