@@ -35,12 +35,11 @@
     "postcss-loader": "^0.6.0",
     "sass-loader": "^1.0.2",
     "style-loader": "^0.12.3",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.8"
   },
   "dependencies": {
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
-    "moment": "^2.10.6",
-    "velocity-animate": "^1.2.3"
+    "moment": "^2.10.6"
   }
 }
