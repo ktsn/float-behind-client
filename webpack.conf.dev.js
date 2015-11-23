@@ -1,4 +1,4 @@
-/* node: true */
+/* jshint node: true */
 'use strict';
 
 var webpack = require('webpack');

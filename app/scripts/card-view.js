@@ -2,15 +2,12 @@
 
 import $ from 'jquery';
 import moment from 'moment';
+import EventEmitter from './event-emitter';
+import * as Behavior from './card-view-behavior';
 
-const weight = 0.0005;
 const velocitySeed = 20;
-const friction = 0.95;
-const bounce = -0.6;
-const threshold = 20;
-const opacityDuration = 400;
 
-export default class Card {
+export default class CardView extends EventEmitter {
   get w() {
     this._w = this._w || this.$el.outerWidth();
     return this._w;
@@ -22,14 +19,17 @@ export default class Card {
   }
 
   constructor(cardData, $wrapper) {
+    super();
     this.$wrapper = $wrapper;
 
+    // TODO: get the user image url from the server
     this.data = cardData;
     this.data.date = moment(this.data.date);
     this.data.imageUrl = 'http://placehold.it/40x40';
+
     this.$el = $(this.template(this.data))
                 .appendTo(this.$wrapper)
-                .data('obj', this);
+                .data('card', this);
 
     this.createdAt = performance.now();
 
@@ -37,22 +37,7 @@ export default class Card {
 
     this.mouse = { x: 0, y: 0 };
 
-    this.isBounce = true;
-    this.isHover = false;
-    this.isDrag = false;
-
-    // Hover event
-    this.$el.on({
-      mouseenter: () => {
-        if (this.isDrag || !this.isBounce) {
-          return;
-        }
-
-        this.isHover = true;
-        this.stop();
-      },
-      mouseleave: () => this.isHover = false,
-    });
+    this.behavior = Behavior.initialBehavior;
   }
 
   init() {
@@ -89,63 +74,18 @@ export default class Card {
     this.$el.css('transform', `translate3d(${x}px, ${y}px, 0)`);
   }
 
-  stop() {
-    this.ax = this.ay = this.vx = this.vy = 0;
-  }
-
   update(timestamp) {
-    if (this.isDrag) {
-      return;
-    }
-
-    this.updateOpacity(timestamp);
-
-    let [ax, ay] = [this.ax + this.delta(), this.ay + this.delta()];
-    let [vx, vy] = [(this.vx + ax) * friction, (this.vy + ay) * friction];
-    let [x, y] = [this.x + vx, this.y + vy];
-
-    if (this.isBounce) {
-      let right = this.$wrapper.outerWidth();
-      if (x < 0) {
-        x = 0;
-        vx *= bounce;
-        ax *= bounce;
-      } else if (x + this.w > right) {
-        x = right - this.w;
-        vx *= bounce;
-        ax *= bounce;
-      }
-
-      // bounce is not occured if the card is already out of wrapper
-      let bottom = this.$wrapper.outerHeight();
-      if (y < 0) {
-        y = 0;
-        vy *= bounce;
-        ay *= bounce;
-      } else if (y + this.h > bottom) {
-        y = bottom - this.h;
-        vy *= bounce;
-        ay *= bounce;
-      }
-    }
-
-    this.setPos(x, y);
-
-    this.ax = ax;
-    this.ay = ay;
-    this.vx = vx;
-    this.vy = vy;
+    this.behavior(this, timestamp);
   }
 
-  updateOpacity(timestamp) {
-    let opacity = Math.min((timestamp - this.createdAt) / opacityDuration, 1);
-    this.$el.css('opacity', opacity);
+  remove() {
+    this.$el.remove();
+    this.behavior = $.noop;
+    this.trigger('remove', this);
   }
 
   dragStart(event) {
-    event.preventDefault();
-
-    this.isDrag = true;
+    this.behavior = Behavior.dragBehavior;
 
     let offset = this.$wrapper.offset();
     this.mouse.x = event.pageX - offset.left;
@@ -153,12 +93,6 @@ export default class Card {
   }
 
   dragMove(event) {
-    if (!this.isDrag) {
-      return;
-    }
-
-    event.preventDefault();
-
     let offset = this.$wrapper.offset();
     let x = event.pageX - offset.left;
     let y = event.pageY - offset.top;
@@ -173,16 +107,7 @@ export default class Card {
   }
 
   dragEnd(event) {
-    if (!this.isDrag) {
-      return;
-    }
-
-    event.preventDefault();
-    this.isDrag = false;
-
-    if (Math.sqrt(Math.pow(this.vx, 2) + Math.pow(this.vy, 2)) > threshold) {
-      this.isBounce = false;
-    }
+    this.behavior = Behavior.thrownBehavior;
   }
 
   template(card) {
@@ -202,9 +127,5 @@ export default class Card {
           <h1 class="card-title">${card.title}</h1>
         </a>
       </article>`;
-  }
-
-  delta() {
-    return Math.random() * 2 * weight - weight;
   }
 }
