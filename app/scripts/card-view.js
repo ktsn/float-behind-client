@@ -2,11 +2,12 @@
 
 import $ from 'jquery';
 import moment from 'moment';
+import EventEmitter from './event-emitter';
 import * as Behavior from './card-view-behavior';
 
 const velocitySeed = 20;
 
-export default class CardView {
+export default class CardView extends EventEmitter {
   get w() {
     this._w = this._w || this.$el.outerWidth();
     return this._w;
@@ -18,6 +19,7 @@ export default class CardView {
   }
 
   constructor(cardData, $wrapper) {
+    super();
     this.$wrapper = $wrapper;
 
     // TODO: get the user image url from the server
@@ -27,7 +29,7 @@ export default class CardView {
 
     this.$el = $(this.template(this.data))
                 .appendTo(this.$wrapper)
-                .data('obj', this);
+                .data('card', this);
 
     this.createdAt = performance.now();
 
@@ -79,11 +81,10 @@ export default class CardView {
   remove() {
     this.$el.remove();
     this.behavior = $.noop;
+    this.trigger('remove', this);
   }
 
   dragStart(event) {
-    event.preventDefault();
-
     this.behavior = Behavior.dragBehavior;
 
     let offset = this.$wrapper.offset();
@@ -92,8 +93,6 @@ export default class CardView {
   }
 
   dragMove(event) {
-    event.preventDefault();
-
     let offset = this.$wrapper.offset();
     let x = event.pageX - offset.left;
     let y = event.pageY - offset.top;
@@ -108,7 +107,6 @@ export default class CardView {
   }
 
   dragEnd(event) {
-    event.preventDefault();
     this.behavior = Behavior.thrownBehavior;
   }
 

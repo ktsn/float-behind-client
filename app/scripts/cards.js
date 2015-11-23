@@ -14,6 +14,11 @@ export default class Cards extends EventEmitter {
     this.cards = [];
   }
 
+  remove(cardId) {
+    // TODO: send remove request
+    console.log(`removed: ${cardId}`);
+  }
+
   startPolling(interval) {
     this.isPolling = true;
     this.polling(interval);
