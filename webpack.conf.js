@@ -21,7 +21,7 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.html$/, loader: 'html-loader'},
+      {test: /\.html$/, loader: 'html-loader?attrs=false'},
       {test: /\.scss$/, loader: 'style!css!postcss!sass'},
       {test: /\.js$/, loader: 'babel-loader'}
     ]

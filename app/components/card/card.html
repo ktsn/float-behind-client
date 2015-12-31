@@ -1,0 +1,15 @@
+<article v-show="!removed" class="card" :style="{ transform: detectTransformStyle() }" @mousedown.prevent="onMouseDown">
+  <a class="card-anchor" :href="card.url" target="_blank" @click.prevent>
+    <header class="card-header">
+      <div class="card-icon-wrapper">
+        <img :src="card.imageUrl" :alt="card.userName" class="card-icon">
+      </div>
+      <p class="card-header-main">
+        <span class="card-user">{{ card.userName }}</span>
+        <small class="card-from">from {{ card.from }}</small>
+      </p>
+      <time class="card-date" :datetime="card.date">{{ card.date }}</time>
+    </header>
+    <h1 class="card-title">{{ card.title }}</h1>
+  </a>
+</article>

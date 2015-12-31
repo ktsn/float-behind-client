@@ -2,31 +2,25 @@
 
 import $ from 'jquery';
 import _ from 'lodash';
-import EventEmitter from './event-emitter';
 
-const fetchUrl = 'http://floatbehind.mybluemix.net/getListById';
+const fetchURL = '/sampleData';
 
-export default class Cards extends EventEmitter {
-  constructor() {
-    super();
-    this.isPolling = false;
-    this.maxId = 0;
-    this.cards = [];
-  }
+export default {
+  isPolling: false,
+  maxId: 0,
 
-  remove(cardId) {
-    // TODO: send remove request
-    console.log(`removed: ${cardId}`);
-  }
+  state: {
+    cards: []
+  },
 
   startPolling(interval) {
     this.isPolling = true;
     this.polling(interval);
-  }
+  },
 
   stopPolling() {
     this.isPolling = false;
-  }
+  },
 
   polling(interval) {
     if (!this.isPolling) {
@@ -34,7 +28,7 @@ export default class Cards extends EventEmitter {
     }
 
     $.ajax({
-      url: fetchUrl,
+      url: fetchURL,
       type: 'get',
       data: {
         id: this.maxId
@@ -44,12 +38,15 @@ export default class Cards extends EventEmitter {
 
       if (cards.length > 0) {
         this.maxId = _.last(cards).id + 1;
-        this.cards = this.cards.concat(cards);
+        this.state.cards = this.state.cards.concat(cards);
       }
-
-      this.trigger('fetch', cards);
 
       setTimeout(this.polling.bind(this, interval), interval);
     });
+  },
+
+  remove(card) {
+    // TODO: send remove request
+    console.log(`removed: ${card.id}`);
   }
-}
+};
