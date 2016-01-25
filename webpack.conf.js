@@ -23,7 +23,7 @@ module.exports = {
     loaders: [
       {test: /\.html$/, loader: 'html-loader?attrs=false'},
       {test: /\.scss$/, loader: 'style!css!postcss!sass'},
-      {test: /\.js$/, loader: 'babel-loader'}
+      {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/}
     ]
   },
   postcss: function() {
