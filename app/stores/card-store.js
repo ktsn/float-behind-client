@@ -1,11 +1,15 @@
 'use strict';
 
-import $ from 'jquery';
+import Vue from 'vue';
 import _ from 'lodash';
 
-const fetchURL = '/sampleData';
-
 export default {
+  _pages: null,
+
+  get pages() {
+    return this._pages || (this._pages = Vue.resource('/pages{/id}'));
+  },
+
   isPolling: false,
   maxId: 0,
 
@@ -27,22 +31,20 @@ export default {
       return;
     }
 
-    $.ajax({
-      url: fetchURL,
-      type: 'get',
-      data: {
-        id: this.maxId
-      }
-    }).done((data) => {
-      let cards = data.result;
+    this.pages
+      .get({
+        sinceId: this.maxId
+      })
+      .then((response) => {
+        let cards = response.data.result;
 
-      if (cards.length > 0) {
-        this.maxId = _.last(cards).id + 1;
-        this.state.cards = this.state.cards.concat(cards);
-      }
+        if (cards.length > 0) {
+          this.maxId = _.last(cards).id + 1;
+          this.state.cards = this.state.cards.concat(cards);
+        }
 
-      setTimeout(this.polling.bind(this, interval), interval);
-    });
+        setTimeout(this.polling.bind(this, interval), interval);
+      });
   },
 
   remove(card) {

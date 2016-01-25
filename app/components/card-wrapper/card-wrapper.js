@@ -1,11 +1,11 @@
 'use strict';
 
-import $ from 'jquery';
 import './card-wrapper.scss';
 import template from './card-wrapper.html';
 import card from '../card/card';
 import cardStore from '../../stores/card-store';
 import Native from '../../utils/native';
+import {getAbsolutePosition} from '../../utils/position';
 
 const pollingInterval = 60000;
 
@@ -17,8 +17,6 @@ export default {
   },
 
   created() {
-    cardStore.startPolling(pollingInterval);
-
     // the data for storing dragging component
     this.drag = {
       target: null,
@@ -29,6 +27,8 @@ export default {
   ready() {
     this.width = this.$el.clientWidth;
     this.height = this.$el.clientHeight;
+
+    cardStore.startPolling(pollingInterval);
   },
 
   methods: {
@@ -55,9 +55,9 @@ export default {
       this.drag.moved = true;
 
       // detect mouse position
-      const offset = $(this.$el).offset();
-      const x = event.pageX - offset.left;
-      const y = event.pageY - offset.top;
+      const elPosition = getAbsolutePosition(this.$el);
+      const x = event.pageX - elPosition.x;
+      const y = event.pageY - elPosition.y;
 
       this.dragMove(this.drag.target, x, y);
     },
@@ -77,9 +77,9 @@ export default {
   events: {
     mouseDownCard(cardVM) {
       // detect mouse position
-      const offset = $(this.$el).offset();
-      const x = event.pageX - offset.left;
-      const y = event.pageY - offset.top;
+      const elPosition = getAbsolutePosition(this.$el);
+      const x = event.pageX - elPosition.x;
+      const y = event.pageY - elPosition.y;
 
       this.drag.target = cardVM;
       this.drag.moved = false;
