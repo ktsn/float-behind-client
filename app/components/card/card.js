@@ -4,6 +4,7 @@ import './card.scss';
 import template from './card.html';
 import cardStore from '../../stores/card-store';
 import * as Behavior from './card-behavior';
+import format from '../../filters/format';
 
 const velocitySeed = 20;
 
@@ -108,5 +109,7 @@ export default {
     onMouseDown(event) {
       this.$dispatch('mouseDownCard', this);
     }
-  }
+  },
+
+  filters: { format }
 };
