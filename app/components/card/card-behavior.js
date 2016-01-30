@@ -11,8 +11,8 @@ function delta() {
 }
 
 export function initialBehavior(card, timestamp) {
-  let opacity = Math.min((timestamp - card.createdAt) / opacityDuration, 1);
-  card.$el.css('opacity', opacity);
+  const opacity = Math.min((timestamp - card.createdAt) / opacityDuration, 1);
+  card.opacity = opacity;
 
   floatBehavior(card);
 
@@ -26,29 +26,30 @@ export function floatBehavior(card) {
   let [vx, vy] = [(card.vx + ax) * friction, (card.vy + ay) * friction];
   let [x, y] = [card.x + vx, card.y + vy];
 
-  let right = card.$wrapper.outerWidth();
+  const right = card.$parent.width;
   if (x < 0) {
     x = 0;
     vx *= bounce;
     ax *= bounce;
-  } else if (x + card.w > right) {
-    x = right - card.w;
+  } else if (x + card.width > right) {
+    x = right - card.width;
     vx *= bounce;
     ax *= bounce;
   }
 
-  let bottom = card.$wrapper.outerHeight();
+  const bottom = card.$parent.height;
   if (y < 0) {
     y = 0;
     vy *= bounce;
     ay *= bounce;
-  } else if (y + card.h > bottom) {
-    y = bottom - card.h;
+  } else if (y + card.height > bottom) {
+    y = bottom - card.height;
     vy *= bounce;
     ay *= bounce;
   }
 
-  card.setPos(x, y);
+  card.x = x;
+  card.y = y;
 
   card.ax = ax;
   card.ay = ay;
@@ -56,41 +57,44 @@ export function floatBehavior(card) {
   card.vy = vy;
 }
 
-export function dragBehavior(card) {
-}
-
 export function thrownBehavior(card) {
-  let [vx, vy] = [card.vx * friction, card.vy * friction];
-  let [x, y] = [card.x + vx, card.y + vy];
+  const [vx, vy] = [card.vx * friction, card.vy * friction];
+  const [x, y] = [card.x + vx, card.y + vy];
 
-  card.setPos(x, y);
+  card.x = x;
+  card.y = y;
 
   card.vx = vx;
   card.vy = vy;
 
   // change the behavior to floatBehavior if the velocity will be less than the threshold
-  if (Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2)) < threshold) {
+  if (vx * vx + vy * vy < threshold * threshold) {
     card.behavior = floatBehavior;
     return;
   }
 
   // the card will be removed if it goes over the wrapper border
-  let right = card.$wrapper.outerWidth();
-  let bottom = card.$wrapper.outerHeight();
-  if (x < 0 || x + card.w > right || y < 0 || y + card.h > bottom) {
+  const right = card.$parent.width;
+  const bottom = card.$parent.height;
+  if (x < 0 || x + card.width > right || y < 0 || y + card.height > bottom) {
     card.behavior = leaveBehavior;
   }
 }
 
 export function leaveBehavior(card) {
-  let [x, y] = [card.x + card.vx, card.y + card.vy];
+  const [x, y] = [card.x + card.vx, card.y + card.vy];
 
-  card.setPos(x, y);
+  card.x = x;
+  card.y = y;
 
   // remove the card after it completely leave the viewport
-  let right = card.$wrapper.outerWidth();
-  let bottom = card.$wrapper.outerHeight();
-  if (x + card.w < 0 || x > right || y + card.h < 0 || y > bottom) {
+  const right = card.$parent.width;
+  const bottom = card.$parent.height;
+  if (x + card.width < 0 || x > right || y + card.height < 0 || y > bottom) {
     card.remove();
+    card.behavior = noBehavior;
   }
+}
+
+export function noBehavior(card) {
 }
