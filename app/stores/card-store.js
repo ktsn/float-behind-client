@@ -48,7 +48,6 @@ export default {
   },
 
   remove(card) {
-    // TODO: send remove request
-    console.log(`removed: ${card.id}`);
+    this.pages.delete({ id: card.id });
   }
 };
