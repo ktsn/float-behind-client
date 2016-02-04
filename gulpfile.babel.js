@@ -89,7 +89,7 @@ gulp.task('fonts', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['webpack:dev', 'inject', 'fonts'], () => {
+gulp.task('serve', ['watch'], () => {
   bs({
     notify: false,
     port: 9000,
@@ -100,7 +100,9 @@ gulp.task('serve', ['webpack:dev', 'inject', 'fonts'], () => {
       }
     }
   });
+});
 
+gulp.task('watch', ['webpack:dev', 'inject', 'fonts'], () => {
   gulp.watch([
     'app/images/**/*',
     '.tmp/fonts/**/*'

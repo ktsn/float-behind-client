@@ -3,6 +3,9 @@
   "engines": {
     "node": ">=5.0.0"
   },
+  "scripts": {
+    "watch": "gulp watch"
+  },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
     "babel": "^5.5.6",
