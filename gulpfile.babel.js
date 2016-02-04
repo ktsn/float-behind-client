@@ -4,7 +4,6 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import bs from 'browser-sync';
-import fs from 'fs';
 import del from 'del';
 import webpack from 'webpack';
 import url from 'url';
@@ -114,10 +113,6 @@ gulp.task('serve', ['webpack:dev', 'inject', 'fonts'], () => {
 
 gulp.task('build', ['html', 'images', 'fonts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
-});
-
-gulp.task('publish', ['build'], (done) => {
-  fs.copy('dist', '../public', done);
 });
 
 gulp.task('default', ['clean'], () => {
