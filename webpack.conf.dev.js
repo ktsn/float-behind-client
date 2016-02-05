@@ -23,9 +23,9 @@ module.exports = {
   devtool: 'source-map',
   module: {
     loaders: [
-      {test: /\.html$/, loader: 'html-loader'},
+      {test: /\.html$/, loader: 'html-loader?attrs=false'},
       {test: /\.scss$/, loader: 'style!css!postcss!sass?sourceMap'},
-      {test: /\.js$/, loader: 'babel-loader'}
+      {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/}
     ]
   },
   postcss: function() {
