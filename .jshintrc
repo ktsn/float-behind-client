@@ -1,9 +1,0 @@
-{
-  "browser": true,
-  "esnext": true,
-  "globalstrict": true,
-  "globals": {
-    "performance": true,
-    "Native": true
-  }
-}
