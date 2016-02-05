@@ -1,5 +1,3 @@
-'use strict';
-
 export function getAbsolutePosition(el) {
   const bounds = el.getBoundingClientRect();
 

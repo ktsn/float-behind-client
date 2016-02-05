@@ -1,5 +1,3 @@
-'use strict';
-
 import './card.scss';
 import template from './card.html';
 import cardStore from '../../stores/card-store';

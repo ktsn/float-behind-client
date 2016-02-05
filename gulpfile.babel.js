@@ -1,15 +1,20 @@
-/* jshint node: true, globals: false */
+/* eslint no-console: 0 */
 // generated on 2015-06-27 using generator-gulp-webapp 1.0.2
-'use strict';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import bs from 'browser-sync';
 import del from 'del';
 import webpack from 'webpack';
-import url from 'url';
 import mainBowerFiles from 'main-bower-files';
 
 const $ = gulpLoadPlugins();
+
+gulp.task('lint', (done) => {
+  return gulp.src(['**/*.js'])
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failAfterError());
+});
 
 gulp.task('webpack', (done) => {
   webpack(require('./webpack.conf.js'), done);
@@ -41,8 +46,8 @@ gulp.task('styles', () => {
   return gulp.src('app/**/*.scss')
     .pipe($.plumber({
       errorHandler: function (err) {
-          console.log(err);
-          this.emit('end');
+        console.log(err);
+        this.emit('end');
       }
     }))
     .pipe($.sass())
@@ -113,7 +118,7 @@ gulp.task('watch', ['webpack:dev', 'inject', 'fonts'], () => {
   gulp.watch('bower.json', ['fonts']);
 });
 
-gulp.task('build', ['html', 'images', 'fonts'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
