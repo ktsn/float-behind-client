@@ -56,14 +56,10 @@ gulp.task('styles', () => {
 });
 
 gulp.task('html', ['webpack', 'inject'], () => {
-  const assets = $.useref.assets({searchPath: ['.tmp', '.']});
-
   return gulp.src('.tmp/*.html')
-    .pipe(assets)
+    .pipe($.useref({ searchPath: ['.tmp', '.'] }))
     .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
-    .pipe(assets.restore())
-    .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
     .pipe(gulp.dest('dist'));
 });
