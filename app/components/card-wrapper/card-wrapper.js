@@ -1,5 +1,3 @@
-'use strict';
-
 import './card-wrapper.scss';
 import template from './card-wrapper.html';
 import card from '../card/card';

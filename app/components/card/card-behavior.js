@@ -1,5 +1,3 @@
-'use strict';
-
 const weight = 0.0002;
 const friction = 0.95;
 const bounce = -0.6;

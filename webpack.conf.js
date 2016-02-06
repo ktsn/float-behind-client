@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
