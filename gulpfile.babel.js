@@ -23,10 +23,17 @@ gulp.task('webpack', (done) => {
 gulp.task('webpack:dev', (done) => {
   var compiler = webpack(require('./webpack.config.dev.js'));
 
-  compiler.watch(200, (err, stats) => {
+  compiler.watch({
+    poll: true
+  }, (err, stats) => {
     if (err) throw err;
 
     bs.reload();
+    console.log(stats.toString({
+      hash: false,
+      version: false,
+      chunks: false
+    }));
 
     if (done) {
       done();

@@ -3,10 +3,10 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: path.resolve(__dirname, 'app'),
-  entry: 'main.js',
+  entry: './main.js',
   output: {
     path: path.resolve(__dirname, '.tmp'),
-    filename: 'main.js'
+    filename: './main.js'
   },
   resolve: {
     moduleDirectories: ['bower_components', 'node_modules'],
