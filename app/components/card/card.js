@@ -105,7 +105,7 @@ export default {
     },
 
     onMouseDown(event) {
-      this.$dispatch('mouseDownCard', this);
+      this.$dispatch('mouseDownCard', event, this);
     }
   },
 
