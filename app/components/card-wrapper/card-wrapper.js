@@ -73,7 +73,7 @@ export default {
   },
 
   events: {
-    mouseDownCard(cardVM) {
+    mouseDownCard(event, cardVM) {
       // detect mouse position
       const elPosition = getAbsolutePosition(this.$el);
       const x = event.pageX - elPosition.x;
