@@ -17,11 +17,11 @@ gulp.task('lint', (done) => {
 });
 
 gulp.task('webpack', (done) => {
-  webpack(require('./webpack.conf.js'), done);
+  webpack(require('./webpack.config.js'), done);
 });
 
 gulp.task('webpack:dev', (done) => {
-  var compiler = webpack(require('./webpack.conf.dev.js'));
+  var compiler = webpack(require('./webpack.config.dev.js'));
 
   compiler.watch(200, (err, stats) => {
     if (err) throw err;
