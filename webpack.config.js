@@ -1,21 +1,18 @@
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  entry: ['./app/main.js'],
+  context: path.resolve(__dirname, 'app'),
+  entry: './main.js',
   output: {
-    filename: '.tmp/main.js'
+    path: path.resolve(__dirname, '.tmp'),
+    filename: './main.js'
   },
   resolve: {
-    root: ['bower_components'],
+    moduleDirectories: ['bower_components', 'node_modules'],
     extensions: ['', '.js']
   },
   devtool: 'source-map',
-  plugins: [
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('package.json', ['main'])
-    )
-  ],
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader?attrs=false'},

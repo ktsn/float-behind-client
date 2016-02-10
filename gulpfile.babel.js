@@ -17,16 +17,23 @@ gulp.task('lint', (done) => {
 });
 
 gulp.task('webpack', (done) => {
-  webpack(require('./webpack.conf.js'), done);
+  webpack(require('./webpack.config.js'), done);
 });
 
 gulp.task('webpack:dev', (done) => {
-  var compiler = webpack(require('./webpack.conf.dev.js'));
+  var compiler = webpack(require('./webpack.config.dev.js'));
 
-  compiler.watch(200, (err, stats) => {
+  compiler.watch({
+    poll: true
+  }, (err, stats) => {
     if (err) throw err;
 
     bs.reload();
+    console.log(stats.toString({
+      hash: false,
+      version: false,
+      chunks: false
+    }));
 
     if (done) {
       done();
@@ -56,14 +63,10 @@ gulp.task('styles', () => {
 });
 
 gulp.task('html', ['webpack', 'inject'], () => {
-  const assets = $.useref.assets({searchPath: ['.tmp', '.']});
-
   return gulp.src('.tmp/*.html')
-    .pipe(assets)
+    .pipe($.useref({ searchPath: ['.tmp', '.'] }))
     .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
-    .pipe(assets.restore())
-    .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
     .pipe(gulp.dest('dist'));
 });
