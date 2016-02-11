@@ -29,6 +29,14 @@ export default {
     cardStore.startPolling(pollingInterval);
   },
 
+  attached() {
+    window.addEventListener('resize', this.onWindowResize);
+  },
+
+  detached() {
+    window.removeEventListener('resize', this.onWindowResize);
+  },
+
   methods: {
     dragStart(cardVM, x, y) {
       cardVM.dragStart(x, y);
@@ -69,6 +77,11 @@ export default {
 
       this.drag.target = null;
       this.drag.moved = false;
+    },
+
+    onWindowResize() {
+      this.width = this.$el.clientWidth;
+      this.height = this.$el.clientHeight;
     }
   },
 
