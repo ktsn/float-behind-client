@@ -5,7 +5,7 @@ export default {
   _pages: null,
 
   get pages() {
-    return this._pages || (this._pages = Vue.resource('/pages{/id}'));
+    return this._pages || (this._pages = Vue.resource('pages{/id}'));
   },
 
   isPolling: false,
