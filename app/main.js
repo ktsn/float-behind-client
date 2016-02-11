@@ -8,6 +8,8 @@ import cardWrapper from './components/card-wrapper/card-wrapper';
 Vue.use(VueResource);
 Vue.use(Helpers);
 
+Vue.http.options.root = '/api/v1';
+
 const app = new Vue(cardWrapper);
 
 app.$mount('#app');
