@@ -24,7 +24,7 @@ gulp.task('webpack:dev', (done) => {
   var compiler = webpack(require('./webpack.config.dev.js'));
 
   compiler.watch({
-    poll: true
+    poll: 1500
   }, (err, stats) => {
     if (err) throw err;
 
