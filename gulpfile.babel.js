@@ -1,3 +1,4 @@
+/* eslint-env node */
 /* eslint no-console: 0 */
 // generated on 2015-06-27 using generator-gulp-webapp 1.0.2
 import gulp from 'gulp';
