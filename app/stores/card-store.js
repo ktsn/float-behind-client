@@ -41,7 +41,10 @@ export default {
           this.state.cards = this.state.cards.concat(cards);
         }
 
-        setTimeout(this.polling.bind(this, interval), interval);
+        setTimeout(() => this.polling(interval), interval);
+      })
+      .catch(() => {
+        setTimeout(() => this.polling(interval), interval);
       });
   },
 
