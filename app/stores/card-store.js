@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import _ from 'lodash';
+import { trackAjaxError } from '../utils/ga';
 
 export default {
   _pages: null,
@@ -43,7 +44,8 @@ export default {
 
         setTimeout(() => this.polling(interval), interval);
       })
-      .catch(() => {
+      .catch((res) => {
+        trackAjaxError(res.status, res.data.error);
         setTimeout(() => this.polling(interval), interval);
       });
   },
