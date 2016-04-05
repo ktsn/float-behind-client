@@ -45,7 +45,7 @@ export default {
         setTimeout(() => this.polling(interval), interval);
       })
       .catch((res) => {
-        trackAjaxError(res.status, res.data.error);
+        trackAjaxError(res);
         setTimeout(() => this.polling(interval), interval);
       });
   },
