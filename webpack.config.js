@@ -1,6 +1,14 @@
 /* eslint-env node */
+const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+
+const env = require('dotenv').config();
+const envDefinitions = {};
+
+Object.keys(env).forEach(key => {
+  envDefinitions[`process.env.${key}`] = JSON.stringify(env[key]);
+});
 
 module.exports = {
   context: path.resolve(__dirname, 'app'),
@@ -23,5 +31,11 @@ module.exports = {
   },
   postcss: function() {
     return [autoprefixer];
-  }
+  },
+  externals: {
+    'google-analytics': 'var window.ga'
+  },
+  plugins: [
+    new webpack.DefinePlugin(envDefinitions)
+  ]
 };
