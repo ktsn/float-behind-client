@@ -122,8 +122,12 @@ gulp.task('watch', ['webpack:dev', 'inject', 'fonts'], () => {
   gulp.watch('bower.json', ['fonts']);
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts'], () => {
+gulp.task('build', ['html', 'images', 'fonts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+});
+
+gulp.task('build:lint', ['build'], () => {
+  return gulp.start('lint');
 });
 
 gulp.task('default', ['clean'], () => {
