@@ -6,6 +6,7 @@
     node: false
   globals:
     Native: true
+    process: true
   ecmaFeatures:
     arrowFunctions: true
     blockBindings: true
