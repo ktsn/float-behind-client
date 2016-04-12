@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "5"
+before_script:
+  - npm install -g bower
+  - npm install -g gulp
+  - bower install
+  - cp .env.example .env
+script:
+  - npm run lint 
+  - gulp build
