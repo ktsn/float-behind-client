@@ -6,4 +6,6 @@ before_script:
   - npm install -g gulp
   - bower install
   - cp .env.example .env
-script: gulp build
+script:
+  - npm run lint 
+  - gulp build
