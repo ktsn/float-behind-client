@@ -1,0 +1,64 @@
+@charset 'utf-8';
+
+.intro-box {
+  overflow: hidden;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -245px;
+  box-sizing: border-box;
+  padding: 15px;
+  height: 300px;
+  width: 490px;
+  background-color: rgba(242, 242, 242, 0.8);
+}
+
+.intro-background {
+  opacity: 0.7;
+  position: absolute;
+  left: -57px;
+  bottom: -22px;
+  color: #e0e0e0;
+  font-size: 300px;
+  z-index: 0;
+}
+
+.intro-logo {
+  position: relative;
+  margin-top: 60px;
+  font-size: 4.5rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.intro-body {
+  position: relative;
+  margin-top: 15px;
+  font-size: 1.37rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.intro-kunai-inline {
+  height: 1em;
+  width: auto;
+  vertical-align: middle;
+}
+
+.intro-kunai {
+  position: absolute;
+  right: 30%;
+  top: 2%;
+  animation: kunai 1500ms linear infinite alternate;
+}
+
+@keyframes kunai {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(20px, -20px);
+  }
+}
