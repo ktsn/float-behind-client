@@ -18,11 +18,11 @@ gulp.task('lint', (done) => {
 });
 
 gulp.task('webpack', (done) => {
-  webpack(require('./webpack.config.js'), done);
+  webpack(require('./scripts/webpack.config.js'), done);
 });
 
 gulp.task('webpack:dev', (done) => {
-  var compiler = webpack(require('./webpack.config.dev.js'));
+  var compiler = webpack(require('./scripts/webpack.config.dev.js'));
 
   compiler.watch({
     poll: 1500

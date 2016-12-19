@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>floatbehind changelog</title>
+        <link>https://raw.githubusercontent.com/ktsn/float-behind-osx/master/FloatBehind/appcast.xml</link>
+        <description>The most recent update information of the floatbehind app.</description>
+        <language>en</language>
+        <item>
+            <title>floatbehind 1.1.0</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                    <li>Add logout feature</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate></pubDate>
+            <enclosure url="https://github.com/ktsn/float-behind-osx/releases/download/v1.1.0/FloatBehind-1.1.0.dmg" sparkle:version="1.1.0" length="20160325" type="application/octet-stream" sparkle:dsaSignature="MCwCFGqLJDxyn3hnUX6x9KzEz+kCqbv2AhQWG3mzL8NCGUVu71lSPz4cmzk/LA==" />
+        </item>
+    </channel>
+</rss>

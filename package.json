@@ -4,7 +4,9 @@
     "node": ">=5.0.0"
   },
   "scripts": {
-    "watch": "gulp watch",
+    "dev": "gulp serve",
+    "dev:osx": "scripts/osx-dev-local.sh",
+    "build": "gulp build",
     "lint": "eslint ."
   },
   "devDependencies": {

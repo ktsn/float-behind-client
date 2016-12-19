@@ -3,7 +3,9 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 
-const env = require('dotenv').config();
+const resolve = _path => path.resolve(__dirname, '../', _path);
+
+const env = require('dotenv').config({ path: resolve('.env') });
 const envDefinitions = {};
 
 Object.keys(env).forEach(key => {
@@ -11,10 +13,10 @@ Object.keys(env).forEach(key => {
 });
 
 module.exports = {
-  context: path.resolve(__dirname, 'app'),
+  context: resolve('app'),
   entry: './main.js',
   output: {
-    path: path.resolve(__dirname, '.tmp'),
+    path: resolve('.tmp'),
     filename: './main.js'
   },
   resolve: {
@@ -25,7 +27,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader?attrs=false'},
-      {test: /\.scss$/, loader: 'style!css!postcss!sass'},
+      {test: /\.scss$/, loader: 'style-loader!css-loader!postcss-loader!sass-loader'},
       {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/}
     ]
   },
