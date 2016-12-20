@@ -36,7 +36,7 @@ export default {
     }
   },
 
-  ready() {
+  mounted() {
     this.width = this.$el.offsetWidth
     this.height = this.$el.offsetHeight
 
@@ -105,7 +105,7 @@ export default {
     },
 
     onMouseDown(event) {
-      this.$dispatch('mouseDownCard', event, this)
+      this.$emit('mousedown', event, this)
     }
   },
 

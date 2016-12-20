@@ -8,7 +8,7 @@
         <span class="card-user">{{ card.user.name }}</span>
         <small class="card-from">from {{ card.from }}</small>
       </p>
-      <time class="card-date" :datetime="card.datetime">{{ card.datetime | format 'hh:mm A, D MMMM' }}</time>
+      <time class="card-date" :datetime="card.datetime">{{ card.datetime | format('hh:mm A, D MMMM') }}</time>
     </header>
     <h1 class="card-title">{{ card.title }}</h1>
   </a>

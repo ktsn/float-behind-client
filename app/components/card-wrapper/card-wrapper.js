@@ -22,18 +22,15 @@ export default {
     }
   },
 
-  ready() {
+  mounted() {
     this.width = this.$el.clientWidth
     this.height = this.$el.clientHeight
 
     cardStore.startPolling(pollingInterval)
-  },
-
-  attached() {
     window.addEventListener('resize', this.onWindowResize)
   },
 
-  detached() {
+  beforeDestroy() {
     window.removeEventListener('resize', this.onWindowResize)
   },
 
@@ -82,11 +79,9 @@ export default {
     onWindowResize() {
       this.width = this.$el.clientWidth
       this.height = this.$el.clientHeight
-    }
-  },
+    },
 
-  events: {
-    mouseDownCard(event, cardVM) {
+    onMouseDownCard(event, cardVM) {
       // detect mouse position
       const elPosition = getAbsolutePosition(this.$el)
       const x = event.pageX - elPosition.x

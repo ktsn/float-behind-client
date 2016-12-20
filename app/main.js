@@ -18,23 +18,19 @@ Vue.use(Helpers)
 Vue.http.options.root = process.env.NODE_ENV !== 'production'
   ? 'http://localhost.floatbehind.ninja:3000/api/v1'
   : 'https://app.floatbehind.ninja/api/v1'
-Vue.http.options.credentials = true
-
-const App = Vue.extend({})
+Vue.http.options.xhr = { withCredentials: true }
 
 const router = new VueRouter({
-  history: process.env.NODE_ENV === 'production'
+  mode: 'hash',
+  routes: [
+    { path: '/', component: cardWrapper },
+    { path: '/intro', component: intro }
+  ]
 })
 
-router.map({
-  '/': {
-    component: cardWrapper
-  },
-  '/intro': {
-    component: intro
-  }
+new Vue({
+  el: '#app',
+  router
 })
-
-router.start(App, '#app')
 
 pageView()

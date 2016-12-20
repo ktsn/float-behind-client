@@ -20,6 +20,9 @@ module.exports = {
     filename: './main.js'
   },
   resolve: {
+    alias: {
+      vue: 'vue/dist/vue.common.js'
+    },
     moduleDirectories: ['bower_components', 'node_modules'],
     extensions: ['', '.js']
   },
