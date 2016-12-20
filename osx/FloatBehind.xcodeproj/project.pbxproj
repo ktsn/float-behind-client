@@ -43,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		030867E21BF831CA000AE366 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		030867E21BF831CA000AE366 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		0329CDDC1C9EF01B004A12F8 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		0335AF9E1BF78DEC00F66F2B /* FloatBehind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatBehind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0335AFA11BF78DEC00F66F2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -61,6 +61,7 @@
 		03ABBCA21C5DDD8E00219C6A /* LoginWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
 		03ABBCA41C5DDEA000219C6A /* LoginWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWindowController.xib; sourceTree = "<group>"; };
 		03ABBCB01C5DF8A100219C6A /* URLConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
+		03B4EEFA1E08422900EA063F /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		03CC9AE11C96F9E400817696 /* StatusMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenu.swift; sourceTree = "<group>"; };
 		03D4C5691C978E4E00294A24 /* AppCookieService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCookieService.swift; sourceTree = "<group>"; };
 		03F1E1F41C82C0EA00D3C1A2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		0335AF951BF78DEC00F66F2B = {
 			isa = PBXGroup;
 			children = (
+				03B4EEFA1E08422900EA063F /* www */,
 				A90376891C60F45200AB694B /* .editorconfig */,
 				030867E21BF831CA000AE366 /* .gitignore */,
 				0335AFA01BF78DEC00F66F2B /* FloatBehind */,
@@ -135,7 +137,6 @@
 		0335AFA01BF78DEC00F66F2B /* FloatBehind */ = {
 			isa = PBXGroup;
 			children = (
-				03B4EEE91E08211E00EA063F /* Resources */,
 				0329CDDB1C9EF005004A12F8 /* Model */,
 				03D4C5681C978E3900294A24 /* Service */,
 				03CC9AE01C96F9C400817696 /* Menu */,
@@ -167,13 +168,6 @@
 				0335AFBE1BF78DED00F66F2B /* Info.plist */,
 			);
 			path = FloatBehindUITests;
-			sourceTree = "<group>";
-		};
-		03B4EEE91E08211E00EA063F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		03CC9AE01C96F9C400817696 /* Menu */ = {
@@ -230,13 +224,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0335AFC11BF78DED00F66F2B /* Build configuration list for PBXNativeTarget "FloatBehind" */;
 			buildPhases = (
+				03B4EEFE1E08EC3000EA063F /* Copy www directory */,
 				5FD28D963EC492EB960C3AF2 /* Check Pods Manifest.lock */,
 				0335AF9A1BF78DEC00F66F2B /* Sources */,
 				0335AF9B1BF78DEC00F66F2B /* Frameworks */,
 				0335AF9C1BF78DEC00F66F2B /* Resources */,
 				16C932385C0E563ADE184FDB /* Embed Pods Frameworks */,
 				837245F8BBDFCF1C484074F7 /* Copy Pods Resources */,
-				03F1E1FA1C82D38000D3C1A2 /* ShellScript */,
+				03F1E1FA1C82D38000D3C1A2 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -360,13 +355,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03F1E1FA1C82D38000D3C1A2 /* ShellScript */ = {
+		03B4EEFE1E08EC3000EA063F /* Copy www directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Copy www directory";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "DIST_DIR=\"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME/Contents/Resources/www/\"\n/usr/bin/rsync -a --delete --exclude=\"- .*\" www/ \"$DIST_DIR\"";
+		};
+		03F1E1FA1C82D38000D3C1A2 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -69,3 +69,6 @@ fastlane/screenshots
 # Ruby
 /.bundle/
 /vendor/bundle
+
+# Web
+/www/

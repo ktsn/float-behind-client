@@ -11,7 +11,7 @@ import mainBowerFiles from 'main-bower-files';
 const $ = gulpLoadPlugins();
 
 gulp.task('lint', (done) => {
-  return gulp.src(['**/*.js'])
+  return gulp.src(['app/**/*.js', 'scripts/**/*.js'])
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failAfterError());

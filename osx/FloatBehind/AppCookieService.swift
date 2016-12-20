@@ -24,7 +24,7 @@ class AppCookieSet: Sequence {
     }
     
     func makeIterator() -> AnyIterator<HTTPCookie> {
-        let cookies: [HTTPCookie] = self.storage.cookies(for: URLConstants.app as URL) ?? []
+        let cookies: [HTTPCookie] = self.storage.cookies(for: URLConstants.root as URL) ?? []
         
         var index = 0
         return AnyIterator<HTTPCookie> {
