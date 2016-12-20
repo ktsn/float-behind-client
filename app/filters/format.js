@@ -1,5 +1,5 @@
-import moment from 'moment';
+import moment from 'moment'
 
 export default function format(value, formatStr) {
-  return moment(value).format(formatStr);
+  return moment(value).format(formatStr)
 }

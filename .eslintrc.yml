@@ -1,0 +1,7 @@
+---
+  extends: eslint-config-ktsn
+  parser: babel-eslint
+  env:
+    browser: true
+  globals:
+    Native: true

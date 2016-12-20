@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import _ from 'lodash';
-import { trackAjaxError } from '../utils/ga';
+import Vue from 'vue'
+import _ from 'lodash'
+import { trackAjaxError } from '../utils/ga'
 
 export default {
   _pages: null,
 
   get pages() {
-    return this._pages || (this._pages = Vue.resource('pages{/id}'));
+    return this._pages || (this._pages = Vue.resource('pages{/id}'))
   },
 
   isPolling: false,
@@ -17,17 +17,17 @@ export default {
   },
 
   startPolling(interval) {
-    this.isPolling = true;
-    this.polling(interval);
+    this.isPolling = true
+    this.polling(interval)
   },
 
   stopPolling() {
-    this.isPolling = false;
+    this.isPolling = false
   },
 
   polling(interval) {
     if (!this.isPolling) {
-      return;
+      return
     }
 
     this.pages
@@ -35,22 +35,22 @@ export default {
         sinceId: this.maxId
       })
       .then((response) => {
-        let cards = response.data.result;
+        const cards = response.data.result
 
         if (cards.length > 0) {
-          this.maxId = _.last(cards).id + 1;
-          this.state.cards = this.state.cards.concat(cards);
+          this.maxId = _.last(cards).id + 1
+          this.state.cards = this.state.cards.concat(cards)
         }
 
-        setTimeout(() => this.polling(interval), interval);
+        setTimeout(() => this.polling(interval), interval)
       })
       .catch((res) => {
-        trackAjaxError(res);
-        setTimeout(() => this.polling(interval), interval);
-      });
+        trackAjaxError(res)
+        setTimeout(() => this.polling(interval), interval)
+      })
   },
 
   remove(card) {
-    this.pages.delete({ id: card.id });
+    this.pages.delete({ id: card.id })
   }
-};
+}
