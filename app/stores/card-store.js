@@ -1,14 +1,8 @@
-import Vue from 'vue'
 import _ from 'lodash'
+import axios from '../ajax'
 import { trackAjaxError } from '../utils/ga'
 
 export default {
-  _pages: null,
-
-  get pages() {
-    return this._pages || (this._pages = Vue.resource('pages{/id}'))
-  },
-
   isPolling: false,
   maxId: 0,
 
@@ -30,9 +24,11 @@ export default {
       return
     }
 
-    this.pages
-      .get({
-        sinceId: this.maxId
+    axios
+      .get('/pages', {
+        params: {
+          sinceId: this.maxId
+        }
       })
       .then((response) => {
         const cards = response.data.result
@@ -51,6 +47,6 @@ export default {
   },
 
   remove(card) {
-    this.pages.delete({ id: card.id })
+    axios.delete('/pages/' + card.id)
   }
 }
