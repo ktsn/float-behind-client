@@ -1,4 +1,3 @@
-/* eslint-env node */
 const webpack = require('webpack')
 const path = require('path')
 const autoprefixer = require('autoprefixer')
@@ -8,8 +7,8 @@ const resolve = _path => path.resolve(__dirname, '../', _path)
 const env = require('dotenv').config({ path: resolve('.env') })
 const envDefinitions = {}
 
-Object.keys(env).forEach(key => {
-  envDefinitions[`process.env.${key}`] = JSON.stringify(env[key])
+;['NODE_ENV', 'GA_ID'].forEach(key => {
+  envDefinitions[`process.env.${key}`] = JSON.stringify(process.env[key] || env[key])
 })
 
 module.exports = {

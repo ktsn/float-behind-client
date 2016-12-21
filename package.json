@@ -5,8 +5,9 @@
   },
   "scripts": {
     "dev": "gulp serve",
-    "dev:osx": "scripts/osx-dev-local.sh",
+    "dev:osx": "scripts/osx-www.sh",
     "build": "gulp build",
+    "build:osx": "scripts/osx-build.sh",
     "lint": "eslint app scripts",
     "lint:fix": "npm run lint -- --fix"
   },
