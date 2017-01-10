@@ -13,7 +13,7 @@ const envDefinitions = {}
 
 module.exports = {
   context: resolve('app'),
-  entry: './main.js',
+  entry: ['es6-promise/auto', './main.js'],
   output: {
     path: resolve('.tmp'),
     filename: './main.js'
