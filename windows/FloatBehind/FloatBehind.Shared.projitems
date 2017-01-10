@@ -6,6 +6,5 @@
     <SharedGUID>da179aa8-8968-4232-9baf-cd17317b1ce9</SharedGUID>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
   </ItemGroup>
 </Project>
